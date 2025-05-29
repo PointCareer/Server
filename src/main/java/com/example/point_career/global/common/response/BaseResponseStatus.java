@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum BaseResponseStatus {
-	//TODO: 상황에 맞는 메시지 추가해서 사
+	//TODO: 상황에 맞는 메시지 추가해서 사용
 
 	SUCCESS("success", 200, "요청에 성공했습니다."),
 	FAIL("fail", 400, "요청에 실패했습니다."),
