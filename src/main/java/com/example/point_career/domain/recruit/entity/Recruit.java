@@ -1,4 +1,4 @@
-package com.example.point_career.domain.recruit.Entity;
+package com.example.point_career.domain.recruit.entity;
 
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package com.example.point_career.domain.tag.Entity;
+package com.example.point_career.domain.tag.entity;
 
 import jakarta.persistence.*;
 

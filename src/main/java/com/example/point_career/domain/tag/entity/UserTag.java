@@ -1,6 +1,6 @@
-package com.example.point_career.domain.tag.Entity;
+package com.example.point_career.domain.tag.entity;
 
-import com.example.point_career.domain.user.Entity.User;
+import com.example.point_career.domain.user.entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
