@@ -1,4 +1,4 @@
-package com.example.point_career.domain.user.Entity;
+package com.example.point_career.domain.user.entity;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
