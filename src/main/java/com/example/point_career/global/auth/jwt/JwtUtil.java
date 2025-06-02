@@ -9,6 +9,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -22,6 +23,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class JwtUtil {
+
+	@Value("${jwt.secret}")
+	private String secret;
+
 	private SecretKey secretKey;
 
 	@Value("${jwt.access-token.expiration-time}")
@@ -30,8 +35,9 @@ public class JwtUtil {
 	@Value("${jwt.refresh-token.expiration-time}")
 	private Long refreshTokenExpirationTime;
 
-	public JwtUtil(@Value("${spring.jwt.secret}") String secret) {
-		secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8),
+	@PostConstruct
+	public void init() {
+		this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8),
 				Jwts.SIG.HS256.key().build().getAlgorithm());
 	}
 

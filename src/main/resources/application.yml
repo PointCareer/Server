@@ -17,7 +17,7 @@ spring:
         format_sql: true
         show_sql: true
 jwt:
-  secret: ozDdCaDnHYuu9mo1hIbvSu6oTKuDOMuN55GlMFDDonJxtsDd8E2DXf4E9vt5BNIPBmsPczB7TTgiTH2kxFDuDw==
+  secret: ${JWT_SECRET_KEY}
   access-token:
     header: Authorization
     expiration-time: 900000 #1000 * 60 * 15 (15분)

@@ -14,6 +14,7 @@ import com.example.point_career.domain.user.dto.LoginResponse;
 import com.example.point_career.domain.user.dto.RegisterResponse;
 import com.example.point_career.global.common.response.BaseResponseStatus;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class UserController {
 	public BaseResponse<RegisterResponse> register(@RequestBody RegisterRequest request) {
 		// TODO: 회원가입 처리
 
-		return null;
+		return new BaseResponse<>(BaseResponseStatus.REGISTER_SUCCESS, userService.register(request));
 	}
 
 	// BE-2 이메일 인증 코드 요청
@@ -58,7 +59,6 @@ public class UserController {
 	@Operation(summary = "로그인")
 	@PostMapping("/login")
 	public ResponseEntity<BaseResponse<LoginResponse>> login(@RequestBody LoginRequest request) {
-		// TODO: 로그인 처리 및 토큰 발급
 		LoginResult loginResult = userService.login(request);
 
 		String accessToken = loginResult.getAccessToken();

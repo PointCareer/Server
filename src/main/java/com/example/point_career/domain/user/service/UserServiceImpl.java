@@ -15,9 +15,12 @@ import com.example.point_career.global.auth.jwt.JwtUtil;
 import com.example.point_career.global.common.response.BaseException;
 import com.example.point_career.global.common.response.BaseResponse;
 import com.example.point_career.global.common.response.BaseResponseStatus;
+import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +31,49 @@ public class UserServiceImpl implements UserService{
 	private final PasswordEncoder passwordEncoder;
 
 	@Override
+	@Transactional
 	public RegisterResponse register(RegisterRequest request) {
-		return null;
+
+		// 1. 로그인 아이디 중복 체크
+		if (userRepository.existsByLoginId(request.getLoginId())) {
+			throw new BaseException(BaseResponseStatus.DUPLICATE_LOGIN_ID);
+		}
+
+		// 2. 이메일 중복 체크
+		if (userRepository.existsByEmail(request.getEmail())) {
+			throw new BaseException(BaseResponseStatus.DUPLICATE_EMAIL);
+		}
+
+		// 3. 비밀번호와 비밀번호 확인 일치 체크
+		if (!request.getPassword().equals(request.getConfirmPassword())) {
+			throw new BaseException(BaseResponseStatus.PASSWORDS_DO_NOT_MATCH);
+		}
+
+		// 4. 비밀번호 암호화
+		String encodedPassword = passwordEncoder.encode(request.getPassword());
+
+		// 5. 사용자 생성
+		User user = User.builder()
+				.loginId(request.getLoginId())
+				.email(request.getEmail())
+				.password(encodedPassword)
+				.name(request.getName())
+				.major(request.getMajor())
+				.grade(request.getGrade())
+				.semester(request.getSemester())
+				.userPoint(request.getUserPoint())
+				.remainPoint(request.getRemainPoint())
+				.emailVerified(false)
+				.createdAt(LocalDateTime.now())
+				.updatedAt(LocalDateTime.now())
+				.build();
+		// 5. 저장
+		userRepository.save(user);
+
+		return RegisterResponse.builder()
+				.is_email_verified(user.getEmailVerified())
+				.user_id(user.getId())
+				.build();
 	}
 
 	@Override
@@ -43,6 +87,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	@Transactional
 	public LoginResult login(LoginRequest request) {
 		// 1. 사용자 조회
 		User findUser = userRepository.findByLoginId(request.getLoginId())
