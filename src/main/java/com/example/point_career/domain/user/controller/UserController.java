@@ -3,7 +3,7 @@ package com.example.point_career.domain.user.controller;
 import com.example.point_career.domain.user.dto.EmailCodeRequest;
 import com.example.point_career.domain.user.dto.EmailCodeVerifyRequest;
 import com.example.point_career.domain.user.dto.RegisterRequest;
-import com.example.point_career.global.response.BaseResponse;
+import com.example.point_career.global.common.response.BaseResponse;
 import com.example.point_career.domain.user.dto.EmailCodeResponse;
 import com.example.point_career.domain.user.dto.EmailCodeVerifyResponse;
 import com.example.point_career.domain.user.dto.LoginRequest;

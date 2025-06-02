@@ -1,6 +1,6 @@
 package com.example.point_career.domain.mainpage.controller;
 
-import com.example.point_career.global.response.BaseResponse;
+import com.example.point_career.global.common.response.BaseResponse;
 import com.example.point_career.domain.mainpage.dto.UserMeResponse;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;

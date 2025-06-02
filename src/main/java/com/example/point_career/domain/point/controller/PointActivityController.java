@@ -1,6 +1,6 @@
 package com.example.point_career.domain.point.controller;
 
-import com.example.point_career.global.response.BaseResponse;
+import com.example.point_career.global.common.response.BaseResponse;
 import com.example.point_career.domain.point.dto.PointActivityDetailResponse;
 import com.example.point_career.domain.point.dto.PointActivityListResponse;
 import org.springframework.web.bind.annotation.*;

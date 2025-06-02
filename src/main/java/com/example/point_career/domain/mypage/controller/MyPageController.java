@@ -5,7 +5,7 @@ import com.example.point_career.domain.mypage.dto.RecruitBookmarkListResponse;
 import com.example.point_career.domain.mypage.dto.UserProfileResponse;
 import com.example.point_career.domain.mypage.dto.UserProfileUpdateRequest;
 import com.example.point_career.domain.mypage.dto.UserProfileUpdateResponse;
-import com.example.point_career.global.response.BaseResponse;
+import com.example.point_career.global.common.response.BaseResponse;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;

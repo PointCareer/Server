@@ -2,7 +2,7 @@ package com.example.point_career.domain.bookmark.controller;
 
 import com.example.point_career.domain.bookmark.dto.BookmarkCreateRequest;
 import com.example.point_career.domain.bookmark.dto.BookmarkResponse;
-import com.example.point_career.global.response.BaseResponse;
+import com.example.point_career.global.common.response.BaseResponse;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;

@@ -4,7 +4,7 @@ import com.example.point_career.domain.pointrecommend.dto.PointRecommendInputReq
 import com.example.point_career.domain.pointrecommend.dto.PointRecommendInputResponse;
 import com.example.point_career.domain.pointrecommend.dto.PointRecommendListResponse;
 import com.example.point_career.domain.pointrecommend.dto.PointRecommendResultResponse;
-import com.example.point_career.global.response.BaseResponse;
+import com.example.point_career.global.common.response.BaseResponse;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;

@@ -1,6 +1,6 @@
 package com.example.point_career.domain.recruit.controller;
 
-import com.example.point_career.global.response.BaseResponse;
+import com.example.point_career.global.common.response.BaseResponse;
 import com.example.point_career.domain.recruit.dto.RecruitDetailResponse;
 import com.example.point_career.domain.recruit.dto.RecruitListResponse;
 import org.springframework.web.bind.annotation.*;
