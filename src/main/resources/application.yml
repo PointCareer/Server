@@ -16,3 +16,11 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
         show_sql: true
+jwt:
+  secret: ozDdCaDnHYuu9mo1hIbvSu6oTKuDOMuN55GlMFDDonJxtsDd8E2DXf4E9vt5BNIPBmsPczB7TTgiTH2kxFDuDw==
+  access-token:
+    header: Authorization
+    expiration-time: 900000 #1000 * 60 * 15 (15분)
+  refresh-token:
+    header: Authorization_refresh
+    expiration-time: 604800000 #1000 * 60 * 60 * 24 * 7 (7일)

@@ -2,6 +2,7 @@ package com.example.point_career.domain.user.service;
 
 import com.example.point_career.domain.user.dto.EmailCodeRequest;
 import com.example.point_career.domain.user.dto.EmailCodeVerifyRequest;
+import com.example.point_career.domain.user.dto.LoginResult;
 import com.example.point_career.domain.user.dto.RegisterRequest;
 import com.example.point_career.domain.user.dto.EmailCodeResponse;
 import com.example.point_career.domain.user.dto.EmailCodeVerifyResponse;
@@ -13,5 +14,5 @@ public interface UserService {
     RegisterResponse register(RegisterRequest request);
     EmailCodeResponse requestEmailCode(EmailCodeRequest request);
     EmailCodeVerifyResponse verifyEmailCode(EmailCodeVerifyRequest request);
-    LoginResponse login(LoginRequest request);
+    LoginResult login(LoginRequest request);
 }
