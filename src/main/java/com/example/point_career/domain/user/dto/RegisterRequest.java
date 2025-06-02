@@ -11,7 +11,9 @@ public class RegisterRequest {
     private String password;
     private String confirmPassword;
     private String major;
-    private String grade;
+    private int grade;
     private String semester;
-    private List<Long> favorites;
+    private int userPoint;
+    private int remainPoint;
+//    private List<Long> favorites;
 }
