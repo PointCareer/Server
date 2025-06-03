@@ -7,6 +7,9 @@ spring:
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: localhost
+    port: 6379
 
   jpa:
     hibernate:
@@ -20,7 +23,7 @@ jwt:
   secret: ${JWT_SECRET_KEY}
   access-token:
     header: Authorization
-    expiration-time: 900000 #1000 * 60 * 15 (15분)
+    expiration-time: 900 #60 * 15 (15분)
   refresh-token:
     header: Authorization_refresh
-    expiration-time: 604800000 #1000 * 60 * 60 * 24 * 7 (7일)
+    expiration-time: 604800 #60 * 60 * 24 * 7 (7일)
