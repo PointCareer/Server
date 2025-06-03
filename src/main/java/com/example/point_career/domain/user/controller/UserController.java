@@ -34,8 +34,6 @@ public class UserController {
 	@Operation(summary = "회원가입")
 	@PostMapping("/register")
 	public BaseResponse<RegisterResponse> register(@RequestBody RegisterRequest request) {
-		// TODO: 회원가입 처리
-
 		return new BaseResponse<>(BaseResponseStatus.REGISTER_SUCCESS, userService.register(request));
 	}
 

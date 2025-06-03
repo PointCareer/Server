@@ -9,7 +9,9 @@ import com.example.point_career.domain.user.dto.LoginResponse;
 import com.example.point_career.domain.user.dto.LoginResult;
 import com.example.point_career.domain.user.dto.RegisterRequest;
 import com.example.point_career.domain.user.dto.RegisterResponse;
+import com.example.point_career.domain.user.entity.RefreshToken;
 import com.example.point_career.domain.user.entity.User;
+import com.example.point_career.domain.user.repository.RefreshTokenRepository;
 import com.example.point_career.domain.user.repository.UserRepository;
 import com.example.point_career.global.auth.jwt.JwtUtil;
 import com.example.point_career.global.common.response.BaseException;
@@ -18,6 +20,7 @@ import com.example.point_career.global.common.response.BaseResponseStatus;
 import java.time.LocalDateTime;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +32,9 @@ public class UserServiceImpl implements UserService{
 	private final JwtUtil jwtUtil;
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
+	@Value("${jwt.refresh-token.expiration-time}")
+	private Long refreshTokenExpirationTime;
+	private final RefreshTokenRepository refreshTokenRepository;
 
 	@Override
 	@Transactional
@@ -101,6 +107,8 @@ public class UserServiceImpl implements UserService{
 		String accessToken = jwtUtil.generateAccessToken(findUser.getId(), findUser.getName());
 		String refreshToken = jwtUtil.generateRefreshToken(findUser.getId(), findUser.getName());
 
+		RefreshToken addRefreshToken = new RefreshToken(findUser.getId(), refreshToken, refreshTokenExpirationTime);
+		refreshTokenRepository.save(addRefreshToken);
 
 		LoginResponse loginResponse = LoginResponse.builder()
 				.user_id(findUser.getId())
