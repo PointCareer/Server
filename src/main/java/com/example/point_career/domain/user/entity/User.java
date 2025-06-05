@@ -1,23 +1,28 @@
 package com.example.point_career.domain.user.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.point_career.domain.bookmark.entity.PointBookmark;
+import com.example.point_career.domain.bookmark.entity.RecruitBookmark;
+import com.example.point_career.domain.tag.entity.UserCategory;
+import com.example.point_career.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "User")
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id; //회원id pk
 
     @Column(nullable = false, length = 10)
@@ -36,10 +41,18 @@ public class User {
     private int grade; //회원 학년, 1~5학년
     private String semester; //회원 학기, 1학기, 2학기, 여름방학, 겨울방학 등
 
-    private Boolean emailVerified; //이메일 인증 여부, 기본값은 false
+    private Boolean isEmailVerified; //이메일 인증 여부, 기본값은 false
     private int userPoint; //현재 보유 포인트, 기본값은 0
     private int remainPoint; //잔여 포인트, 기본값은 0
+    private LocalDate targetPeriod;
 
-    private LocalDateTime createdAt; //회원 가입 일시, 기본값은 현재 시간
-    private LocalDateTime updatedAt; //회원 정보 수정 일시, 기본값은 현재 시간
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RecruitBookmark> recruitBookmarks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PointBookmark> pointBookmarks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserCategory> userCategories = new ArrayList<>(); // 유저가 선택한 카테고리 목록
+
 }
