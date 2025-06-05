@@ -1,4 +1,4 @@
-package com.example.point_career.domain.tag.entity;
+package com.example.point_career.domain.Category.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Category")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {

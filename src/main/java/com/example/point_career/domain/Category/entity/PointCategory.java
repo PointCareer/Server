@@ -1,11 +1,10 @@
-package com.example.point_career.domain.tag.entity;
+package com.example.point_career.domain.Category.entity;
 
 import com.example.point_career.domain.point.entity.Point;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 

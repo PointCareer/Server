@@ -70,8 +70,6 @@ public class UserServiceImpl implements UserService{
 				.userPoint(request.getUserPoint())
 				.remainPoint(request.getRemainPoint())
 				.emailVerified(false)
-				.createdAt(LocalDateTime.now())
-				.updatedAt(LocalDateTime.now())
 				.build();
 		// 5. 저장
 		userRepository.save(user);

@@ -1,4 +1,4 @@
-package com.example.point_career.domain.tag.entity;
+package com.example.point_career.domain.Category.entity;
 
 import com.example.point_career.domain.recruit.entity.Recruit;
 import jakarta.persistence.*;
@@ -26,10 +26,10 @@ public class RecruitCategory {
     private Recruit recruit;
 
     // 연관관계 편의 메서드
-    public void setRecruitAndCategory(Recruit recruit, Category category) {
-        this.recruit = recruit;
-        this.category = category;
-    }
+//    public void setRecruitAndCategory(Recruit recruit, Category category) {
+//        this.recruit = recruit;
+//        this.category = category;
+//    }
 }
 
 

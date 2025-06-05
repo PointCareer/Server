@@ -1,7 +1,7 @@
 package com.example.point_career.domain.point.entity;
 
 import com.example.point_career.domain.bookmark.entity.PointBookmark;
-import com.example.point_career.domain.tag.entity.PointCategory;
+import com.example.point_career.domain.Category.entity.PointCategory;
 import com.example.point_career.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;

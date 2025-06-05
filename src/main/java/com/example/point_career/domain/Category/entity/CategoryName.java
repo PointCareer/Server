@@ -1,4 +1,4 @@
-package com.example.point_career.domain.tag.entity;
+package com.example.point_career.domain.Category.entity;
 
 public enum CategoryName {
     //관심분야

@@ -1,20 +1,18 @@
 package com.example.point_career.domain.recruit.entity;
 
 import com.example.point_career.domain.bookmark.entity.RecruitBookmark;
-import com.example.point_career.domain.tag.entity.RecruitCategory;
+import com.example.point_career.domain.Category.entity.RecruitCategory;
 import com.example.point_career.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Recruit")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Recruit extends BaseEntity {

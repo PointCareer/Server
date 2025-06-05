@@ -1,19 +1,17 @@
 package com.example.point_career.domain.user.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.point_career.domain.bookmark.entity.PointBookmark;
 import com.example.point_career.domain.bookmark.entity.RecruitBookmark;
-import com.example.point_career.domain.tag.entity.UserCategory;
+import com.example.point_career.domain.Category.entity.UserCategory;
 import com.example.point_career.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "User")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -41,7 +39,7 @@ public class User extends BaseEntity {
     private int grade; //회원 학년, 1~5학년
     private String semester; //회원 학기, 1학기, 2학기, 여름방학, 겨울방학 등
 
-    private Boolean isEmailVerified; //이메일 인증 여부, 기본값은 false
+    private Boolean emailVerified; //이메일 인증 여부, 기본값은 false
     private int userPoint; //현재 보유 포인트, 기본값은 0
     private int remainPoint; //잔여 포인트, 기본값은 0
     private LocalDate targetPeriod;
