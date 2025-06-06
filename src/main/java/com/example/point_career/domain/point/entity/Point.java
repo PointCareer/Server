@@ -22,8 +22,6 @@ public class Point extends BaseEntity {
 
     @Column(nullable = false, length = 100)
     private String title; // 포인트활동 제목, 필수 입력, 최대 100자
-
-    private String info; // 프로그램 시간, 장소...
     private LocalDateTime deadline; // 프로그램 마감일
 
     private LocalDateTime startTime; // 프로그램 시작일

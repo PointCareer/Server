@@ -25,10 +25,11 @@ public class Recruit extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String company; // 회사명
 
-    private String type; // 채용 유형 (정규직, 계약직 등)
+    @Enumerated(EnumType.STRING)
+    private RecruitType type; // 채용 유형 (정규직, 계약직 등)
+
     private String place; // 근무지
     private LocalDateTime deadline; // 모집 마감일
-    private String requirement; // 모집 설명
     private String detail; // 기업소개
     private String linkUrl; // 신청 외부 링크
     private String imageUrl; // 이미지 URL

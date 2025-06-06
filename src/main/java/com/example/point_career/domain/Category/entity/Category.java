@@ -18,7 +18,7 @@ public class Category {
     private Long id; // 카테고리 ID, 기본키
 
     @Enumerated(EnumType.STRING)
-    private CategoryType type; // INDUSTRY, FAVORITE, CATEGORY
+    private CategoryType type; // FAVORITE,ACTIVITY_CATEGORY,RECRUIT_JOB
 
     @Enumerated(EnumType.STRING)
     private CategoryName name;
