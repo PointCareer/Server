@@ -9,8 +9,10 @@ import com.example.point_career.domain.user.dto.LoginResponse;
 import com.example.point_career.domain.user.dto.LoginResult;
 import com.example.point_career.domain.user.dto.RegisterRequest;
 import com.example.point_career.domain.user.dto.RegisterResponse;
+import com.example.point_career.domain.user.entity.EmailCode;
 import com.example.point_career.domain.user.entity.RefreshToken;
 import com.example.point_career.domain.user.entity.User;
+import com.example.point_career.domain.user.repository.EmailCodeRepository;
 import com.example.point_career.domain.user.repository.RefreshTokenRepository;
 import com.example.point_career.domain.user.repository.UserRepository;
 import com.example.point_career.global.auth.jwt.JwtUtil;
@@ -24,6 +26,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.security.SecureRandom;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +37,7 @@ public class UserServiceImpl implements UserService{
 	private final PasswordEncoder passwordEncoder;
 	@Value("${jwt.refresh-token.expiration-time}")
 	private Long refreshTokenExpirationTime;
+	private final EmailCodeRepository emailCodeRepository;
 	private final RefreshTokenRepository refreshTokenRepository;
 
 	@Override
@@ -82,12 +86,35 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public EmailCodeResponse requestEmailCode(EmailCodeRequest request) {
-		return null;
-	}
+		if (!userRepository.existsByEmail(request.getEmail())) {
+			throw new BaseException(BaseResponseStatus.EMAIL_NOT_EXIST);
+		}
+		String code = String.format("%06d", new SecureRandom().nextInt(1000000));
+		EmailCode emailCode = new EmailCode(request.getEmail(), code, 300L);
+			emailCodeRepository.save(emailCode);
+			System.out.println("Send verification code to " + request.getEmail() + ": " + code);
+
+			return new EmailCodeResponse();
+		}
 
 	@Override
 	public EmailCodeVerifyResponse verifyEmailCode(EmailCodeVerifyRequest request) {
-		return null;
+		EmailCode savedCode = emailCodeRepository.findById(request.getEmail())
+				.orElseThrow(() -> new BaseException(BaseResponseStatus.EMAIL_CODE_INVALID));
+
+		if (!savedCode.getCode().equals(request.getCode())) {
+			throw new BaseException(BaseResponseStatus.EMAIL_CODE_INVALID);
+		}
+
+		User user = userRepository.findByEmail(request.getEmail())
+				.orElseThrow(() -> new BaseException(BaseResponseStatus.USER_NOT_EXIST));
+		user.setEmailVerified(true);
+		userRepository.save(user);
+		emailCodeRepository.deleteById(request.getEmail());
+
+		EmailCodeVerifyResponse response = new EmailCodeVerifyResponse();
+		response.setIs_email_verified(user.getEmailVerified());
+		return response;
 	}
 
 	@Override
