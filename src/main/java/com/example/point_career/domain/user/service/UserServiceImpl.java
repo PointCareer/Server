@@ -22,7 +22,10 @@ import com.example.point_career.global.common.response.BaseResponseStatus;
 import java.time.LocalDateTime;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +42,9 @@ public class UserServiceImpl implements UserService{
 	private Long refreshTokenExpirationTime;
 	private final EmailCodeRepository emailCodeRepository;
 	private final RefreshTokenRepository refreshTokenRepository;
+	private final JavaMailSender mailSender;
+	@Value("${spring.mail.username}")
+	private String fromEmail;
 
 	@Override
 	@Transactional
@@ -91,11 +97,17 @@ public class UserServiceImpl implements UserService{
 		}
 		String code = String.format("%06d", new SecureRandom().nextInt(1000000));
 		EmailCode emailCode = new EmailCode(request.getEmail(), code, 300L);
-			emailCodeRepository.save(emailCode);
-			System.out.println("Send verification code to " + request.getEmail() + ": " + code);
+		emailCodeRepository.save(emailCode);
 
-			return new EmailCodeResponse();
-		}
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(request.getEmail());
+		message.setFrom(fromEmail);
+		message.setSubject("PointCareer Email Verification");
+		message.setText("Your verification code is " + code);
+		mailSender.send(message);
+
+		return new EmailCodeResponse("Verification code sent");
+	}
 
 	@Override
 	public EmailCodeVerifyResponse verifyEmailCode(EmailCodeVerifyRequest request) {
