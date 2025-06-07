@@ -38,20 +38,20 @@ public class UserController {
 	}
 
 	// BE-2 이메일 인증 코드 요청
-	@Operation(summary = "이메일 인증 코드 요청")
-	@PostMapping("/email/code/request")
-	public BaseResponse<EmailCodeResponse> requestEmailCode(@RequestBody EmailCodeRequest request) {
-		// TODO: 인증코드 생성 및 발송
-		return null;
-	}
+        @Operation(summary = "이메일 인증 코드 요청")
+        @PostMapping("/email/code/request")
+        public BaseResponse<EmailCodeResponse> requestEmailCode(@RequestBody EmailCodeRequest request) {
+                return new BaseResponse<>(BaseResponseStatus.EMAIL_CODE_SENT_SUCCESS,
+                                userService.requestEmailCode(request));
+        }
 
 	// BE-3 이메일 인증 코드 검증
-	@Operation(summary = "이메일 인증 코드 검증")
-	@PostMapping("/email/code/verify")
-	public BaseResponse<EmailCodeVerifyResponse> verifyEmailCode(@RequestBody EmailCodeVerifyRequest request) {
-		// TODO: 인증코드 검증 및 인증 처리
-		return null;
-	}
+        @Operation(summary = "이메일 인증 코드 검증")
+        @PostMapping("/email/code/verify")
+        public BaseResponse<EmailCodeVerifyResponse> verifyEmailCode(@RequestBody EmailCodeVerifyRequest request) {
+                return new BaseResponse<>(BaseResponseStatus.EMAIL_VERIFY_SUCCESS,
+                                userService.verifyEmailCode(request));
+        }
 
 	// BE-4 로그인
 	@Operation(summary = "로그인")

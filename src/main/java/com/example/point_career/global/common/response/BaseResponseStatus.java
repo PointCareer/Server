@@ -11,7 +11,9 @@ public enum BaseResponseStatus {
 	 */
 	SUCCESS("success", 20000, "요청에 성공했습니다."),
 	LOGIN_SUCCESS("success",20001,"로그인에 성공했습니다."),
-	REGISTER_SUCCESS("success",20002,"회원가입에 성공했습니다."),
+        REGISTER_SUCCESS("success",20002,"회원가입에 성공했습니다."),
+        EMAIL_CODE_SENT_SUCCESS("success",20003,"인증 코드 발송 완료"),
+        EMAIL_VERIFY_SUCCESS("success",20004,"이메일 인증 완료"),
 
 	/**
 	 * 400xx : Bad Request
@@ -19,7 +21,8 @@ public enum BaseResponseStatus {
 	FAIL("fail", 40000, "요청에 실패했습니다."),
 	VALIDATION_ERROR("fail", 40001, "유효성 검사에 실패했습니다."),
 	PASSWORD_ERROR("fail", 40002, "유효하지 않은 비밀번호입니다."),
-	PASSWORDS_DO_NOT_MATCH("fail", 40003, "비밀번호와 비밀번호 확인이 일치하지 않습니다."),
+        PASSWORDS_DO_NOT_MATCH("fail", 40003, "비밀번호와 비밀번호 확인이 일치하지 않습니다."),
+        EMAIL_CODE_INVALID("fail", 40004, "인증 코드가 올바르지 않습니다."),
 
 	/**
 	 * 401xx : Unauthorized
@@ -35,7 +38,8 @@ public enum BaseResponseStatus {
 	 * 404xx : Not Found
 	 */
 	//User
-	USER_NOT_EXIST("fail", 40401, "존재하지 않는 회원입니다."),
+        USER_NOT_EXIST("fail", 40401, "존재하지 않는 회원입니다."),
+        EMAIL_NOT_EXIST("fail", 40402, "등록되지 않은 이메일입니다."),
 
 	/**
 	 * 409xx : Conflict
