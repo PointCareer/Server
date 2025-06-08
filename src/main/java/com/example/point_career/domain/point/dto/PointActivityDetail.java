@@ -7,7 +7,7 @@ import java.util.List;
 public class PointActivityDetail {
     private Long point_id;
     private String point_title;
-    private boolean is_point_online;
+    private boolean point_online;
     private String point_start_time; // LocalDateTime 등으로 교체 가능
     private String point_end_time;   // LocalDateTime 등으로 교체 가능
     private int point_price;

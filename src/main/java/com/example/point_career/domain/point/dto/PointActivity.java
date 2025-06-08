@@ -9,6 +9,6 @@ public class PointActivity {
     private int point_price;
     private String point_deadline;
     private int point_duration;
-    private boolean is_point_online;
+    private boolean point_online;
     private String point_tag;
 }
