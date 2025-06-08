@@ -29,7 +29,9 @@ public class PointActivityServiceImpl implements PointActivityService {
         dto.setPoint_deadline(point.getDeadline() == null ? null : point.getDeadline().toString());
         dto.setPoint_duration(point.getDuration() == null ? 0 : point.getDuration().ordinal());
         dto.setPoint_online(point.getIsPointOnlineType() != null);
-        dto.setPoint_tag(null);
+        dto.setActivity_category(point.getPointCategories().stream()
+                .map(pc -> pc.getCategory().getId())
+                .collect(Collectors.toList()));
         return dto;
     }
 
@@ -37,13 +39,15 @@ public class PointActivityServiceImpl implements PointActivityService {
         PointActivityDetail detail = new PointActivityDetail();
         detail.setPoint_id(point.getId());
         detail.setPoint_title(point.getTitle());
-//        detail.setIs_point_online(point.getIsPointOnlineType() != null);
+        detail.setPoint_online(point.getIsPointOnlineType() != null);
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         detail.setPoint_start_time(point.getStartTime() == null ? null : point.getStartTime().format(formatter));
         detail.setPoint_end_time(point.getEndTime() == null ? null : point.getEndTime().format(formatter));
         detail.setPoint_price(point.getPointPrice() == null ? 0 : point.getPointPrice());
-        detail.setPoint_summary(null);
-        detail.setPoint_tags(null);
+        detail.setPoint_duration(point.getDuration() == null ? 0 : point.getDuration().ordinal());
+        detail.setActivity_category(point.getPointCategories().stream()
+                .map(pc -> pc.getCategory().getId())
+                .collect(Collectors.toList()));
         detail.setPoint_image_url(point.getImageUrl());
         detail.setPoint_link_url(point.getLinkUrl());
         return detail;
@@ -70,13 +74,19 @@ public class PointActivityServiceImpl implements PointActivityService {
     }
 
     @Override
-    public PointActivityListResponse filterPointActivities(String filter, String sort) {
+    public PointActivityListResponse sortPointActivities(String sortType) {
         Sort s = Sort.unsorted();
-        if (sort != null) {
-            if (sort.equals("deadline")) {
-                s = Sort.by(Sort.Direction.ASC, "deadline");
-            } else if (sort.equals("priceDesc")) {
-                s = Sort.by(Sort.Direction.DESC, "pointPrice");
+        if (sortType != null) {
+            switch (sortType) {
+                case "deadline":
+                    s = Sort.by(Sort.Direction.ASC, "deadline");
+                    break;
+                case "priceDesc":
+                    s = Sort.by(Sort.Direction.DESC, "pointPrice");
+                    break;
+                case "durationAsc":
+                    s = Sort.by(Sort.Direction.ASC, "duration");
+                    break;
             }
         }
         List<PointActivity> activities = pointRepository.findAll(s).stream()

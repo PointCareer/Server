@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 
-@Tag(name = "RS5: 포인트 활동", description = "포인트 활동 전체/검색/필터/상세 조회 API")
+@Tag(name = "RS5: 포인트 활동", description = "포인트 활동 전체/검색/정렬/상세 조회 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/points/activities")
@@ -32,12 +32,11 @@ public class PointActivityController {
         return new BaseResponse<>(BaseResponseStatus.SUCCESS, pointActivityService.searchPointActivities(keyword));
     }
 
-    // BE-17 포인트 활동 목록 필터링 조회 (정렬/필터 통합 시 예: ?filter=, ?sort=)
-    @Operation(summary = "포인트 활동 목록 필터링 조회")
-    @GetMapping("/filter")
-    public BaseResponse<PointActivityListResponse> filterPointActivities(@RequestParam(required = false) String filter,
-                                                                         @RequestParam(required = false) String sort) {
-        return new BaseResponse<>(BaseResponseStatus.SUCCESS, pointActivityService.filterPointActivities(filter, sort));
+    // BE-16 포인트 활동 목록 정렬 조회
+    @Operation(summary = "포인트 활동 목록 정렬 조회")
+    @GetMapping("/sort")
+    public BaseResponse<PointActivityListResponse> sortPointActivities(@RequestParam String sortType) {
+        return new BaseResponse<>(BaseResponseStatus.SUCCESS, pointActivityService.sortPointActivities(sortType));
     }
 
     // BE-18 포인트 활동 상세 조회
