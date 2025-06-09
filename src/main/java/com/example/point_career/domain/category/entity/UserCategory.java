@@ -1,6 +1,6 @@
-package com.example.point_career.domain.Category.entity;
+package com.example.point_career.domain.category.entity;
 
-import com.example.point_career.domain.recruit.entity.Recruit;
+import com.example.point_career.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,25 +11,23 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-public class RecruitCategory {
+public class UserCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "recruit_category_id")
+    @Column(name = "user_category_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruit_id")
-    private Recruit recruit;
+    @JoinColumn(name = "category_id")
+    private Category category; // 카테고리 엔티티와의 다대일 관계
 
-    // 연관관계 편의 메서드
-//    public void setRecruitAndCategory(Recruit recruit, Category category) {
-//        this.recruit = recruit;
+    //연관관계 편의 메서드
+//    public void setUserAndCategory(User user, Category category) {
+//        this.user = user;
 //        this.category = category;
 //    }
 }
-
-

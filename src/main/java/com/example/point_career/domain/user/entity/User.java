@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.example.point_career.domain.bookmark.entity.PointBookmark;
 import com.example.point_career.domain.bookmark.entity.RecruitBookmark;
-import com.example.point_career.domain.Category.entity.UserCategory;
+import com.example.point_career.domain.category.entity.UserCategory;
 import com.example.point_career.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
