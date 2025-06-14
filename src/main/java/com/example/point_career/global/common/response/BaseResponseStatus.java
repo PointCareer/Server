@@ -36,6 +36,8 @@ public enum BaseResponseStatus {
 	 */
 	//User
 	USER_NOT_EXIST("fail", 40401, "존재하지 않는 회원입니다."),
+	// Recruit
+	RECRUIT_NOT_EXIST("fail",40402, "존재하지 않는 채용공고입니다."),
 
 	/**
 	 * 409xx : Conflict

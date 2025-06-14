@@ -5,6 +5,7 @@ public enum RecruitType {
     INTERNSHIP, // 인턴십
     CONTRACT, // 계약직
     PART_TIME, // 파트타임 및 아르바이트
-    FREELANCE //
+    FREELANCE,
+    ETC//
 
 }
