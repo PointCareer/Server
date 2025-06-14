@@ -1,7 +1,7 @@
 package com.example.point_career.domain.recruit.entity;
 
 import com.example.point_career.domain.bookmark.entity.RecruitBookmark;
-import com.example.point_career.domain.Category.entity.RecruitCategory;
+import com.example.point_career.domain.category.entity.RecruitCategory;
 import com.example.point_career.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -40,6 +40,6 @@ public class Recruit extends BaseEntity {
     @OneToMany(mappedBy = "recruit", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecruitBookmark> recruitBookmarks = new ArrayList<>();
 
-    //연관관계 편의 메서드 만들기
+
 
 }
