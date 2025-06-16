@@ -1,13 +1,17 @@
 package com.example.point_career.domain.mypage.dto;
 
-import lombok.*;
+import com.example.point_career.domain.category.entity.Category;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
-@Getter @Setter
+@Getter
+@Setter
 public class UserProfileUpdateRequest {
-    private Long userId;
-    private String department;
-    private String schoolYear;
-    private List<Long> favoriteIds;
-    private List<Long> industriesIds;
+    private Long userId;                 // 사용자 ID
+    private String major;                // 학과
+    private String semester;             // 학기
+    private Integer grade;               // 학년
+    private List<Category> favorite;     // 관심 분야(ENUM)
 }

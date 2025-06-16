@@ -40,6 +40,5 @@ public class Recruit extends BaseEntity {
     @OneToMany(mappedBy = "recruit", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecruitBookmark> recruitBookmarks = new ArrayList<>();
 
-    //연관관계 편의 메서드 만들기
 
 }

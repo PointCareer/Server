@@ -9,7 +9,7 @@ import com.example.point_career.domain.bookmark.repository.PointBookmarkReposito
 import com.example.point_career.domain.bookmark.repository.RecruitBookmarkRepository;
 import com.example.point_career.domain.point.entity.Point;
 import com.example.point_career.domain.point.repository.PointRepository;
-import com.example.point_career.domain.recruit.RecruitRepository;
+import com.example.point_career.domain.recruit.repository.RecruitRepository;
 import com.example.point_career.domain.recruit.entity.Recruit;
 import com.example.point_career.domain.user.entity.User;
 import com.example.point_career.domain.user.repository.UserRepository;

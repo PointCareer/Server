@@ -7,4 +7,5 @@ public interface RecruitService {
     RecruitListResponse getRecruits();
     RecruitDetailResponse getRecruitDetail(Long recruitId);
     RecruitListResponse searchRecruits(String keyword);
+    RecruitListResponse getRecruitsSorted(String sortType);
 }

@@ -25,11 +25,6 @@ public class RecruitCategory {
     @JoinColumn(name = "recruit_id")
     private Recruit recruit;
 
-    // 연관관계 편의 메서드
-//    public void setRecruitAndCategory(Recruit recruit, Category category) {
-//        this.recruit = recruit;
-//        this.category = category;
-//    }
 }
 
 
