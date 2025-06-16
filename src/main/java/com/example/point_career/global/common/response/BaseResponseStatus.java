@@ -14,6 +14,7 @@ public enum BaseResponseStatus {
 	REGISTER_SUCCESS("success",20002,"회원가입에 성공했습니다."),
 	CREATE_BOOKMARK_SUCCESS("success", 20003, "북마크 생성에 성공했습니다."),
 	DELETE_BOOKMARK_SUCCESS("success", 20004, "북마크 삭제에 성공했습니다."),
+	CHECK_EMAIL_SUCCESS("success", 20005, "사용 가능한 이메일입니다."),
 
 	/**
 	 * 400xx : Bad Request
