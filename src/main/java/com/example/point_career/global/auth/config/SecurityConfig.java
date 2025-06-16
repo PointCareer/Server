@@ -41,9 +41,13 @@ public class SecurityConfig {
 						.frameOptions(frameOptions -> frameOptions.disable())
 				)
 				.authorizeHttpRequests((authorizeRequests) -> authorizeRequests
+						.requestMatchers(
+								"/v3/api-docs/**",
+								"/swagger-ui/**",
+								"/swagger-ui.html"
+						).permitAll()
 						.requestMatchers("/api/v1/auth/**").permitAll()
-						.requestMatchers("/","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/swagger-resources/**")
-						.permitAll()
+						.requestMatchers("/api/v1/points/activities/**").permitAll()
 						.anyRequest().authenticated()
 				)
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

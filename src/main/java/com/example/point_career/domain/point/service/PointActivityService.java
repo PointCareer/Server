@@ -6,6 +6,6 @@ import com.example.point_career.domain.point.dto.PointActivityListResponse;
 public interface PointActivityService {
     PointActivityListResponse getPointActivities();
     PointActivityListResponse searchPointActivities(String keyword);
-    PointActivityListResponse filterPointActivities(String filter, String sort);
+    PointActivityListResponse sortPointActivities(String sortType);
     PointActivityDetailResponse getPointActivityDetail(Long pointId);
 }

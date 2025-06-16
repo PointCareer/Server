@@ -15,6 +15,8 @@ public enum BaseResponseStatus {
 	CREATE_BOOKMARK_SUCCESS("success", 20003, "북마크 생성에 성공했습니다."),
 	DELETE_BOOKMARK_SUCCESS("success", 20004, "북마크 삭제에 성공했습니다."),
 	CHECK_EMAIL_SUCCESS("success", 20005, "사용 가능한 이메일입니다."),
+	EMAIL_CODE_SENT_SUCCESS("success",20006,"인증 코드 발송 완료"),
+	EMAIL_VERIFY_SUCCESS("success",20007,"이메일 인증 완료"),
 
 	/**
 	 * 400xx : Bad Request
@@ -23,7 +25,7 @@ public enum BaseResponseStatus {
 	VALIDATION_ERROR("fail", 40001, "유효성 검사에 실패했습니다."),
 	PASSWORD_ERROR("fail", 40002, "유효하지 않은 비밀번호입니다."),
 	PASSWORDS_DO_NOT_MATCH("fail", 40003, "비밀번호와 비밀번호 확인이 일치하지 않습니다."),
-
+	EMAIL_CODE_INVALID("fail", 40004, "인증 코드가 올바르지 않습니다."),
 	/**
 	 * 401xx : Unauthorized
 	 */
@@ -43,6 +45,7 @@ public enum BaseResponseStatus {
 	RECRUIT_NOT_EXIST("fail", 40403, "존재하지 않는 교내 추천 채용입니다."),
 	POINT_BOOKMARK_NOT_EXIST("fail", 40404, "존재하지 않는 포인트 활동 북마크 입니다."),
 	RECRUIT_BOOKMARK_NOT_EXIST("fail", 40405, "존재하지 않는 교내 추천 채용 북마크 입니다."),
+  EMAIL_NOT_EXIST("fail", 40406, "등록되지 않은 이메일입니다."),
 
 	/**
 	 * 409xx : Conflict

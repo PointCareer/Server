@@ -1,6 +1,8 @@
 package com.example.point_career.domain.point.dto;
 
 import lombok.*;
+import java.util.List;
+
 //BE-14, 15, 17
 @Getter @Setter
 public class PointActivity {
@@ -9,6 +11,6 @@ public class PointActivity {
     private int point_price;
     private String point_deadline;
     private int point_duration;
-    private boolean is_point_online;
-    private String point_tag;
+    private boolean point_online; //dto의 setter충돌로 인해서 is_point_online에서 수정.
+    private List<Long> Activity_category;
 }
