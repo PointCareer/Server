@@ -12,6 +12,8 @@ public enum BaseResponseStatus {
 	SUCCESS("success", 20000, "요청에 성공했습니다."),
 	LOGIN_SUCCESS("success",20001,"로그인에 성공했습니다."),
 	REGISTER_SUCCESS("success",20002,"회원가입에 성공했습니다."),
+	CREATE_BOOKMARK_SUCCESS("success", 20003, "북마크 생성에 성공했습니다."),
+	DELETE_BOOKMARK_SUCCESS("success", 20004, "북마크 삭제에 성공했습니다."),
 
 	/**
 	 * 400xx : Bad Request
@@ -36,6 +38,10 @@ public enum BaseResponseStatus {
 	 */
 	//User
 	USER_NOT_EXIST("fail", 40401, "존재하지 않는 회원입니다."),
+	POINT_NOT_EXIST("fail", 40402, "존재하지 않는 포인트 활동입니다."),
+	RECRUIT_NOT_EXIST("fail", 40403, "존재하지 않는 교내 추천 채용입니다."),
+	POINT_BOOKMARK_NOT_EXIST("fail", 40404, "존재하지 않는 포인트 활동 북마크 입니다."),
+	RECRUIT_BOOKMARK_NOT_EXIST("fail", 40405, "존재하지 않는 교내 추천 채용 북마크 입니다."),
 
 	/**
 	 * 409xx : Conflict
