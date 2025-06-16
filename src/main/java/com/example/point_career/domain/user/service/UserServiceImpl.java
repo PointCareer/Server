@@ -91,6 +91,15 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	public void checkEmail(String email) {
+		boolean isEmailDuplicate = userRepository.existsByEmail(email);
+
+		if (isEmailDuplicate) {
+			throw new BaseException(BaseResponseStatus.DUPLICATE_EMAIL);
+		}
+	}
+
+	@Override
 	public EmailCodeResponse requestEmailCode(EmailCodeRequest request) {
 		if (!userRepository.existsByEmail(request.getEmail())) {
 			throw new BaseException(BaseResponseStatus.EMAIL_NOT_EXIST);

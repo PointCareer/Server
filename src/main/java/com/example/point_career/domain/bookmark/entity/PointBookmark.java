@@ -5,6 +5,8 @@ import com.example.point_career.domain.user.entity.User;
 import com.example.point_career.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +21,8 @@ import static jakarta.persistence.FetchType.LAZY;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "PointBookmark")
 @Getter
+@Builder
+@AllArgsConstructor
 public class PointBookmark extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "point_bookmark_id")

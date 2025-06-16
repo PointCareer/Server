@@ -37,6 +37,14 @@ public class UserController {
 		return new BaseResponse<>(BaseResponseStatus.REGISTER_SUCCESS, userService.register(request));
 	}
 
+	// 이메일 중복 체크
+	@Operation(summary = "이메일 중복 체크")
+	@GetMapping()
+	public BaseResponse<Void> checkEmail (@RequestParam String email) {
+		userService.checkEmail(email);
+		return new BaseResponse<>(BaseResponseStatus.CHECK_EMAIL_SUCCESS);
+	}
+
 	// BE-2 이메일 인증 코드 요청
     @Operation(summary = "이메일 인증 코드 요청")
     @PostMapping("/email/code/request")

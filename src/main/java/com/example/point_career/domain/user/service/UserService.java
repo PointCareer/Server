@@ -12,6 +12,7 @@ import com.example.point_career.domain.user.dto.RegisterResponse;
 
 public interface UserService {
     RegisterResponse register(RegisterRequest request);
+    void checkEmail(String email);
     EmailCodeResponse requestEmailCode(EmailCodeRequest request);
     EmailCodeVerifyResponse verifyEmailCode(EmailCodeVerifyRequest request);
     LoginResult login(LoginRequest request);
