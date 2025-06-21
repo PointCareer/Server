@@ -1,0 +1,57 @@
+name: 개발환경 배포 CICD
+
+# main 브랜치에 Push 이벤트 발생시 동작.
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: gradlew authority 변경
+        run: chmod +x ./gradlew
+
+      - name: Spring Boot 빌드
+        run: |
+          ./gradlew clean build --exclude-task test
+
+      - name: 도커 로그인
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_DEV_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_DEV_TOKEN }}
+
+      - name: docker image 빌드 및 push
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_DEV_USERNAME }}/develop-server:latest .
+          docker push ${{ secrets.DOCKERHUB_DEV_USERNAME }}/develop-server:latest
+
+      - name: configure aws credentials 접근 권한 취득
+        uses: aws-actions/configure-aws-credentials@v4.0.2
+        with:
+          role-to-assume: ${{ secrets.AWS_ACCESS_ROLE_NAME }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: AWS SSH into EC2 & Docker Dangling 이미지 prune & 이미지 pull & 명령어 실행
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          port: ${{ secrets.EC2_SSH_PORT }}
+          timeout: 60s
+          script: |
+            sudo docker login -u ${{ secrets.DOCKERHUB_DEV_USERNAME }} -p ${{ secrets.DOCKERHUB_DEV_TOKEN }}
+            sudo docker pull ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
+            sudo docker stop point-career
+            sudo docker rm point-career
+            sudo docker run -it -d -p 8080:8080 --env-file /home/ubuntu/envfile/develop/ENV_VAR.env -v /home/ubuntu/envfile/apple:/home/ubuntu/envfile/apple --name point-career ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
+            sudo docker image prune -f
