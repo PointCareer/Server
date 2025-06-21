@@ -52,6 +52,10 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ACCESS_ROLE_NAME }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+      - name: EC2 연결 테스트 로그
+        run: |
+          echo "HOST=${{ secrets.EC2_HOST }}"
+          echo "PORT=${{ secrets.EC2_SSH_PORT }}"
 
       - name: AWS SSH into EC2 & Docker Dangling 이미지 prune & 이미지 pull & 명령어 실행
         uses: appleboy/ssh-action@v0.1.6
