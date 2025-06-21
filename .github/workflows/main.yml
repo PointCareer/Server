@@ -13,17 +13,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env: 
-      PORT: ${{secrets.PORT}}
-      MYSQL_URL: ${{secrets.MYSQL_URL}}
-      MYSQL_USERNAME: ${{secrets.MYSQL_USERNAME}}
-      MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
-      REDIS_HOST: ${{secrets.REDIS_HOST}}
-      REDIS_PORT: ${{secrets.REDIS_PORT}}
-      JWT_SECRET_KEY: ${{secrets.JWT_SECRET_KEY}}
-      MAIL_HOST: ${{secrets.MAIL_HOST}}
-      MAIL_PORT: ${{secrets.MAIL_PORT}}
-      MAIL_USERNAME: ${{secrets.MAIL_USERNAME}}
-      MAIL_PASSWORD: ${{secrets.MAIL_PASSWORD}}
+      PORT: ${{ secrets.PORT }}
+      MYSQL_URL: ${{ secrets.MYSQL_URL }}
+      MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      REDIS_HOST: ${{ secrets.REDIS_HOST }}
+      REDIS_PORT: ${{ secrets.REDIS_PORT }}
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+      MAIL_HOST: ${{ secrets.MAIL_HOST }}
+      MAIL_PORT: ${{ secrets.MAIL_PORT }}
+      MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
       
     steps:
       - name: Checkout
