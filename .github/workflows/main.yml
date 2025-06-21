@@ -31,8 +31,8 @@ jobs:
 
       - name: docker image 빌드 및 push
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_DEV_USERNAME }}/develop-server:latest .
-          docker push ${{ secrets.DOCKERHUB_DEV_USERNAME }}/develop-server:latest
+          docker build -t ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest .
+          docker push ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
 
       - name: configure aws credentials 접근 권한 취득
         uses: aws-actions/configure-aws-credentials@v4.0.2
