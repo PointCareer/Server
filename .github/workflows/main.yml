@@ -1,12 +1,11 @@
-name: 개발환경 배포 CICD
+name: PointCareer CI/CD Pipeline
 
-# main 브랜치에 Push 이벤트 발생시 동작.
 on:
   push:
     branches: [ "main" ]
 
 permissions:
-  id-token: write   # This is required for requesting the JWT
+  id-token: write
   contents: read
 
 jobs:
@@ -16,35 +15,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: gradlew authority 변경
+      - name: Set permission for Gradle
         run: chmod +x ./gradlew
 
-      - name: Spring Boot 빌드
-        run: |
-          ./gradlew clean build --exclude-task test
+      - name: Build Spring Boot (without test)
+        run: ./gradlew clean build --exclude-task test
 
-      - name: 도커 로그인
+      - name: DockerHub Login
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_DEV_USERNAME }}
           password: ${{ secrets.DOCKERHUB_DEV_TOKEN }}
 
-      - name: docker image 빌드 및 push
+      - name: Build & Push Docker Image
         run: |
           docker build -t ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest .
           docker push ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
 
-      - name: configure aws credentials 접근 권한 취득
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4.0.2
         with:
           role-to-assume: ${{ secrets.AWS_ACCESS_ROLE_NAME }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-      - name: EC2 연결 테스트 로그
-        run: |
-          echo "HOST=${{ secrets.EC2_HOST }}"
-          echo "PORT=${{ secrets.EC2_SSH_PORT }}"
 
-      - name: AWS SSH into EC2 & Docker Dangling 이미지 prune & 이미지 pull & 명령어 실행
+      - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -54,8 +52,7 @@ jobs:
           timeout: 60s
           script: |
             sudo docker login -u ${{ secrets.DOCKERHUB_DEV_USERNAME }} -p ${{ secrets.DOCKERHUB_DEV_TOKEN }}
-            sudo docker pull ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
-            sudo docker stop point-career
-            sudo docker rm point-career
-            sudo docker run -it -d -p 8080:8080 --env-file /home/ubuntu/envfile/develop/ENV_VAR.env -v /home/ubuntu/envfile/apple:/home/ubuntu/envfile/apple --name point-career ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
-            sudo docker image prune -f
+            sudo docker-compose stop
+            sudo docker-compose rm -f
+            sudo docker rmi ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
+            sudo docker-compose up -d
