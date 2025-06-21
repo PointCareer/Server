@@ -6,6 +6,7 @@ import com.example.point_career.global.auth.jwt.JwtExceptionFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -31,7 +32,7 @@ public class SecurityConfig {
 		http
 				.csrf((csrfConfig) -> csrfConfig.disable())
 				.httpBasic(httpBasic -> httpBasic.disable())
-				.cors(cors -> cors.disable())
+				.cors(Customizer.withDefaults())
 				.sessionManagement(
 						sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				)
