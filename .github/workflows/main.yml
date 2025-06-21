@@ -51,18 +51,8 @@ jobs:
           port: ${{ secrets.EC2_SSH_PORT }}
           timeout: 60s
           script: |
-            cd /home/ubuntu/point-career
-            echo "DockerHub login"
             sudo docker login -u ${{ secrets.DOCKERHUB_DEV_USERNAME }} -p ${{ secrets.DOCKERHUB_DEV_TOKEN }}
-
-            echo "Stopping and removing existing containers"
-            sudo docker-compose down
-
-            echo "Pulling latest image"
-            sudo docker pull ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
-
-            echo "Starting new containers"
+            sudo docker-compose stop
+            sudo docker-compose rm -f
+            sudo docker rmi ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
             sudo docker-compose up -d
-
-            echo "Removing dangling images"
-            sudo docker image prune -f
