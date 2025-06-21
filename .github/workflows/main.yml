@@ -66,5 +66,5 @@ jobs:
             sudo docker pull ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
             sudo docker stop point-career
             sudo docker rm point-career
-            sudo docker run -it -d -p 8080:8080 --env-file /home/ubuntu/envfile/develop/ENV_VAR.env -v /home/ubuntu/envfile/apple:/home/ubuntu/envfile/apple --name point-career ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
+            sudo docker run -it -d -p 8080:8080 --name point-career ${{ secrets.DOCKERHUB_DEV_USERNAME }}/point-career:latest
             sudo docker image prune -f
