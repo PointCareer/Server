@@ -101,9 +101,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public EmailCodeResponse requestEmailCode(EmailCodeRequest request) {
-		if (!userRepository.existsByEmail(request.getEmail())) {
-			throw new BaseException(BaseResponseStatus.EMAIL_NOT_EXIST);
-		}
 		String code = String.format("%06d", new SecureRandom().nextInt(1000000));
 		EmailCode emailCode = new EmailCode(request.getEmail(), code, 300L);
 		emailCodeRepository.save(emailCode);
