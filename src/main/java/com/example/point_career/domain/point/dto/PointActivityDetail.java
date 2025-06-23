@@ -1,13 +1,14 @@
 package com.example.point_career.domain.point.dto;
 
 import lombok.*;
+import com.example.point_career.domain.point.entity.IsPointOnline;
 import java.util.List;
 //BE-18
 @Getter @Setter
 public class PointActivityDetail {
     private Long point_id;
     private String point_title;
-    private boolean point_online; //dto의 setter충돌로 인해서 is_point_online에서 수정.
+    private IsPointOnline point_online_type; // 온라인/오프라인/혼합 여부
     private String point_start_time; // LocalDateTime 등으로 교체 가능
     private String point_end_time;   // LocalDateTime 등으로 교체 가능
     private int point_duration;

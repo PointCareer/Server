@@ -5,6 +5,7 @@ import com.example.point_career.domain.point.dto.PointActivityDetail;
 import com.example.point_career.domain.point.dto.PointActivityDetailResponse;
 import com.example.point_career.domain.point.dto.PointActivityListResponse;
 import com.example.point_career.domain.category.entity.CategoryType;
+import com.example.point_career.domain.point.entity.IsPointOnline;
 import com.example.point_career.domain.point.entity.Point;
 import com.example.point_career.domain.point.repository.PointRepository;
 import com.example.point_career.global.common.response.BaseException;
@@ -29,7 +30,7 @@ public class PointActivityServiceImpl implements PointActivityService {
         dto.setPoint_price(point.getPointPrice() == null ? 0 : point.getPointPrice());
         dto.setPoint_deadline(point.getDeadline() == null ? null : point.getDeadline().toString());
         dto.setPoint_duration(point.getDuration() == null ? 0 : point.getDuration().ordinal());
-        dto.setPoint_online(point.getIsPointOnlineType() != null);
+        dto.setPoint_online_type(point.getIsPointOnlineType());
         dto.setFavoriteCategories(point.getPointCategories().stream()
                 .map(pc -> pc.getCategory())
                 .filter(c -> c.getType() == CategoryType.FAVORITE)
@@ -47,7 +48,7 @@ public class PointActivityServiceImpl implements PointActivityService {
         PointActivityDetail detail = new PointActivityDetail();
         detail.setPoint_id(point.getId());
         detail.setPoint_title(point.getTitle());
-        detail.setPoint_online(point.getIsPointOnlineType() != null);
+        detail.setPoint_online_type(point.getIsPointOnlineType());
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         detail.setPoint_start_time(point.getStartTime() == null ? null : point.getStartTime().format(formatter));
         detail.setPoint_end_time(point.getEndTime() == null ? null : point.getEndTime().format(formatter));
