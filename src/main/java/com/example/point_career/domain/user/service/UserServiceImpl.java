@@ -124,14 +124,16 @@ public class UserServiceImpl implements UserService{
 			throw new BaseException(BaseResponseStatus.EMAIL_CODE_INVALID);
 		}
 
-		User user = userRepository.findByEmail(request.getEmail())
-				.orElseThrow(() -> new BaseException(BaseResponseStatus.USER_NOT_EXIST));
-		user.setEmailVerified(true);
-		userRepository.save(user);
+		// 유저가 없어도 인증은 완료되게 처리 (이 부분 제거 또는 주석 처리)
+		// User user = userRepository.findByEmail(request.getEmail())
+		//         .orElseThrow(() -> new BaseException(BaseResponseStatus.USER_NOT_EXIST));
+		// user.setEmailVerified(true);
+		// userRepository.save(user);
+
 		emailCodeRepository.deleteById(request.getEmail());
 
 		EmailCodeVerifyResponse response = new EmailCodeVerifyResponse();
-		response.setIs_email_verified(user.getEmailVerified());
+		response.setIs_email_verified(true);
 		return response;
 	}
 
