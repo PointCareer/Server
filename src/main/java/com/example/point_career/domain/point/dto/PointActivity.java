@@ -12,5 +12,6 @@ public class PointActivity {
     private String point_deadline;
     private int point_duration;
     private boolean point_online; //dto의 setter충돌로 인해서 is_point_online에서 수정.
-    private List<Long> Activity_category;
+    private List<String> favoriteCategories;
+    private List<String> activityCategories;
 }

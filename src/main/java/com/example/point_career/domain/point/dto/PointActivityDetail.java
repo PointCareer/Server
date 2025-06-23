@@ -12,8 +12,11 @@ public class PointActivityDetail {
     private String point_end_time;   // LocalDateTime 등으로 교체 가능
     private int point_duration;
     private int point_price;
-    private List<Long> Activity_category;
+    private List<String> favoriteCategories;
+    private List<String> activityCategories;
     private String point_image_url;
     private String point_link_url;
-    //place랑 dept는 API명세어 없어서 사용아직 안함.
+    private String point_deadline;
+    private String point_place;
+    private String point_dept;
 }

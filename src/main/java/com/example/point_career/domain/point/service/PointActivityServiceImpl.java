@@ -4,6 +4,7 @@ import com.example.point_career.domain.point.dto.PointActivity;
 import com.example.point_career.domain.point.dto.PointActivityDetail;
 import com.example.point_career.domain.point.dto.PointActivityDetailResponse;
 import com.example.point_career.domain.point.dto.PointActivityListResponse;
+import com.example.point_career.domain.category.entity.CategoryType;
 import com.example.point_career.domain.point.entity.Point;
 import com.example.point_career.domain.point.repository.PointRepository;
 import com.example.point_career.global.common.response.BaseException;
@@ -29,8 +30,15 @@ public class PointActivityServiceImpl implements PointActivityService {
         dto.setPoint_deadline(point.getDeadline() == null ? null : point.getDeadline().toString());
         dto.setPoint_duration(point.getDuration() == null ? 0 : point.getDuration().ordinal());
         dto.setPoint_online(point.getIsPointOnlineType() != null);
-        dto.setActivity_category(point.getPointCategories().stream()
-                .map(pc -> pc.getCategory().getId())
+        dto.setFavoriteCategories(point.getPointCategories().stream()
+                .map(pc -> pc.getCategory())
+                .filter(c -> c.getType() == CategoryType.FAVORITE)
+                .map(c -> c.getName().toString())
+                .collect(Collectors.toList()));
+        dto.setActivityCategories(point.getPointCategories().stream()
+                .map(pc -> pc.getCategory())
+                .filter(c -> c.getType() == CategoryType.ACTIVITY_CATEGORY)
+                .map(c -> c.getName().toString())
                 .collect(Collectors.toList()));
         return dto;
     }
@@ -45,11 +53,21 @@ public class PointActivityServiceImpl implements PointActivityService {
         detail.setPoint_end_time(point.getEndTime() == null ? null : point.getEndTime().format(formatter));
         detail.setPoint_price(point.getPointPrice() == null ? 0 : point.getPointPrice());
         detail.setPoint_duration(point.getDuration() == null ? 0 : point.getDuration().ordinal());
-        detail.setActivity_category(point.getPointCategories().stream()
-                .map(pc -> pc.getCategory().getId())
+        detail.setFavoriteCategories(point.getPointCategories().stream()
+                .map(pc -> pc.getCategory())
+                .filter(c -> c.getType() == CategoryType.FAVORITE)
+                .map(c -> c.getName().toString())
+                .collect(Collectors.toList()));
+        detail.setActivityCategories(point.getPointCategories().stream()
+                .map(pc -> pc.getCategory())
+                .filter(c -> c.getType() == CategoryType.ACTIVITY_CATEGORY)
+                .map(c -> c.getName().toString())
                 .collect(Collectors.toList()));
         detail.setPoint_image_url(point.getImageUrl());
         detail.setPoint_link_url(point.getLinkUrl());
+        detail.setPoint_deadline(point.getDeadline() == null ? null : point.getDeadline().format(formatter));
+        detail.setPoint_place(point.getPlace());
+        detail.setPoint_dept(point.getDept());
         return detail;
     }
 
