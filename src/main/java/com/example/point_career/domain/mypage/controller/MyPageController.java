@@ -3,9 +3,12 @@ package com.example.point_career.domain.mypage.controller;
 import com.example.point_career.domain.mypage.dto.*;
 import com.example.point_career.domain.mypage.service.MyPageService;
 
+import com.example.point_career.domain.user.entity.User;
 import com.example.point_career.global.common.response.BaseResponse;
 import com.example.point_career.global.common.response.BaseResponseStatus;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +31,8 @@ public class MyPageController {
     // BE-9 프로필 수정
     @Operation(summary = "프로필 수정")
     @PutMapping("/profile")
-    public BaseResponse<UserProfileUpdateResponse> updateProfile(@RequestBody UserProfileUpdateRequest request) {
-        return new BaseResponse<>(BaseResponseStatus.SUCCESS, mypageService.updateProfile(request));
+    public BaseResponse<UserProfileUpdateResponse> updateProfile(@AuthenticationPrincipal User user,
+                                                                 @RequestBody @Valid UserProfileUpdateRequest request) {
+        return new BaseResponse<>(BaseResponseStatus.SUCCESS, mypageService.updateProfile(user.getId(), request));
     }
 }
