@@ -91,9 +91,9 @@ public class MyPageService {
 
     // 4. 프로필 수정
     @Transactional
-    public UserProfileUpdateResponse updateProfile(UserProfileUpdateRequest request) {
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.FAIL));
+    public UserProfileUpdateResponse updateProfile(Long userId, UserProfileUpdateRequest request) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.USER_NOT_EXIST));
         user.setMajor(request.getMajor());
         user.setGrade(request.getGrade());
         user.setSemester(request.getSemester());
