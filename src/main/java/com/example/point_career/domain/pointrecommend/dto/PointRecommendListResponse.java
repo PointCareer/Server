@@ -5,5 +5,5 @@ import java.util.List;
 //BE-11
 @Getter @Setter @Builder
 public class PointRecommendListResponse {
-    private List<RecommendGroup> recommendationGroups;
+    private List<RecommendGroup> recommendation_groups;
 }
