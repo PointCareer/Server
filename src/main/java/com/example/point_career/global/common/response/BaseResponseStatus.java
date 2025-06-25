@@ -17,6 +17,7 @@ public enum BaseResponseStatus {
 	CHECK_EMAIL_SUCCESS("success", 20005, "사용 가능한 이메일입니다."),
 	EMAIL_CODE_SENT_SUCCESS("success",20006,"인증 코드 발송 완료"),
 	EMAIL_VERIFY_SUCCESS("success",20007,"이메일 인증 완료"),
+	POINT_RECOMMENDED_SUCCESS("success", 20008,"맞춤 활동 추천에 성공했습니다."),
 
 	/**
 	 * 400xx : Bad Request

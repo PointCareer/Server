@@ -37,7 +37,7 @@ public class PointRecommendServiceImpl implements PointRecommendService {
 
 		//응답 객체 생성 후 변환
 		return PointRecommendListResponse.builder()
-				.recommendationGroups(recommendGroups)
+				.recommendation_groups(recommendGroups)
 				.build();
 	}
 
@@ -46,13 +46,15 @@ public class PointRecommendServiceImpl implements PointRecommendService {
 
 		// 1. 목표 기간 내 가능한 활동만 필터링
 		List<Point> availablePoints = points.stream()
-				.filter(p -> !p.getDeadline().isAfter(deadline))
+				.filter(p -> p.getDeadline().isAfter(LocalDateTime.now()))     // 마감일이 현재 이후
+				.filter(p -> p.getEndTime().isBefore(deadline))                // 종료일이 목표 기한 이전
 				.collect(Collectors.toList());
 
 		// 2. 관심분야 매칭
 		List<Point> filteredPoints = availablePoints.stream()
 				.filter(point -> point.getPointCategories().stream()
-						.anyMatch(favorite::contains))
+						.map(pc -> pc.getCategory().getName())  // 카테고리 이름만 추출
+						.anyMatch(favorite::contains))                  // 관심 분야와 겹치는지 확인
 				.collect(Collectors.toList());
 
 		// 3. 진로 연계성
@@ -71,6 +73,11 @@ public class PointRecommendServiceImpl implements PointRecommendService {
 			accumulatedPoints += point.getPointPrice();
 		}
 
+		boolean isTargetPointSatisfied = true;
+		if (accumulatedPoints < requiredPoints) {
+			isTargetPointSatisfied = false;
+		}
+
 		List<PointRecommendActivity> pointRecommendActivities = selectedPoints.stream()
 				.map(selectedPoint -> PointRecommendActivity.builder()
 						.point_id(selectedPoint.getId())
@@ -79,14 +86,22 @@ public class PointRecommendServiceImpl implements PointRecommendService {
 						.point_price(selectedPoint.getPointPrice())
 						.point_image_url(selectedPoint.getImageUrl())
 						.point_title(selectedPoint.getTitle())
-						.point_categories(selectedPoint.getPointCategories())
+						.point_categories(
+								selectedPoint.getPointCategories().stream()
+										.map(pointCategory -> pointCategory.getCategory().getName())
+										.collect(Collectors.toList())
+						)
 						.point_link_url(selectedPoint.getLinkUrl())
 						.build()
 				)
 				.toList();
 
 		return RecommendGroup.builder()
-				.groupName("A")
+				.group_name("A")
+				.target_points(requiredPoints)
+				.recommended_points(accumulatedPoints)
+				.lacking_points(requiredPoints - accumulatedPoints)
+				.is_target_point_satisfied(isTargetPointSatisfied)
 				.activities(pointRecommendActivities)
 				.build();
 	}
@@ -94,12 +109,13 @@ public class PointRecommendServiceImpl implements PointRecommendService {
 	private RecommendGroup getCourseB(int requiredPoints, LocalDateTime deadline, List<Point> points) {
 		// 1. 목표 기간 내 가능한 활동만 필터링
 		List<Point> availablePoints = points.stream()
-				.filter(p -> !p.getDeadline().isAfter(deadline))
+				.filter(p -> p.getDeadline().isAfter(LocalDateTime.now()))     // 마감일이 현재 이후
+				.filter(p -> p.getEndTime().isBefore(deadline))                // 종료일이 목표 기한 이전
 				.collect(Collectors.toList());
 
 		// Comparator를 사용하여 정렬 기준 정의
 		// 1차 기준: 포인트/시간 효율 (내림차순) → 높은 효율의 활동이 먼저 옴
-		// 2차 기준: 온라인 여부 (true 먼저) → 온라인 활동을 우선으로 정렬
+		// 2차 기준: 온라인 여부 (true 먼저) → 온라인 활동을 우선으로 정렬ㅇ
 		availablePoints.sort(Comparator
 				.comparingDouble(
 						(Point a) -> (double) a.getPointPrice() / Duration.between(a.getStartTime(), a.getEndTime())
@@ -120,6 +136,10 @@ public class PointRecommendServiceImpl implements PointRecommendService {
 			selectedPoints.add(point);
 			accumulatedPoints += point.getPointPrice();
 		}
+		boolean isTargetPointSatisfied = true;
+		if (accumulatedPoints < requiredPoints) {
+			isTargetPointSatisfied = false;
+		}
 
 		List<PointRecommendActivity> pointRecommendActivities = selectedPoints.stream()
 				.map(selectedPoint -> PointRecommendActivity.builder()
@@ -129,14 +149,22 @@ public class PointRecommendServiceImpl implements PointRecommendService {
 						.point_price(selectedPoint.getPointPrice())
 						.point_image_url(selectedPoint.getImageUrl())
 						.point_title(selectedPoint.getTitle())
-						.point_categories(selectedPoint.getPointCategories())
+						.point_categories(
+								selectedPoint.getPointCategories().stream()
+										.map(pointCategory -> pointCategory.getCategory().getName())
+										.collect(Collectors.toList())
+						)
 						.point_link_url(selectedPoint.getLinkUrl())
 						.build()
 				)
 				.toList();
 
 		return RecommendGroup.builder()
-				.groupName("B")
+				.group_name("B")
+				.target_points(requiredPoints)
+				.recommended_points(accumulatedPoints)
+				.lacking_points(requiredPoints - accumulatedPoints)
+				.is_target_point_satisfied(isTargetPointSatisfied)
 				.activities(pointRecommendActivities)
 				.build();
 	}

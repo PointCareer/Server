@@ -4,6 +4,7 @@ import com.example.point_career.domain.category.entity.CategoryName;
 import com.example.point_career.domain.pointrecommend.dto.PointRecommendListResponse;
 import com.example.point_career.domain.pointrecommend.service.PointRecommendServiceImpl;
 import com.example.point_career.global.common.response.BaseResponse;
+import com.example.point_career.global.common.response.BaseResponseStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ import io.swagger.v3.oas.annotations.Operation;
 @RequiredArgsConstructor
 public class PointRecommendController {
 
-    private final PointRecommendServiceImpl pointRecommendService;
+	private final PointRecommendServiceImpl pointRecommendService;
 
 //    // BE-10 맞춤형 포인트 추천 입력 제공
 //    @Operation(summary = "맞춤형 포인트 추천 입력 제공")
@@ -35,12 +36,13 @@ public class PointRecommendController {
 //        return null;
 //    }
 
-    // BE-12 맞춤형 포인트 활동 추천 목록 조회
-    @Operation(summary = "맞춤형 포인트 활동 추천 목록 조회")
-    @GetMapping()
-    public BaseResponse<PointRecommendListResponse> recommendList(@RequestParam int point, @RequestParam LocalDateTime deadline, @RequestParam List<CategoryName> favorite) {
-        // TODO: 전체 추천 활동 목록 반환
-        pointRecommendService.recommendList(point, deadline, favorite);
-        return null;
-    }
+	// BE-12 맞춤형 포인트 활동 추천 목록 조회
+	@Operation(summary = "맞춤형 포인트 활동 추천 목록 조회")
+	@GetMapping()
+	public BaseResponse<PointRecommendListResponse> recommendList(@RequestParam int point,
+																  @RequestParam LocalDateTime deadline,
+																  @RequestParam List<CategoryName> favorite) {
+		return new BaseResponse<>(BaseResponseStatus.POINT_RECOMMENDED_SUCCESS,
+				pointRecommendService.recommendList(point, deadline, favorite));
+	}
 }
