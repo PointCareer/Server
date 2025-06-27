@@ -100,7 +100,7 @@ public class PointRecommendServiceImpl implements PointRecommendService {
 				.group_name("A")
 				.target_points(requiredPoints)
 				.recommended_points(accumulatedPoints)
-				.lacking_points(requiredPoints - accumulatedPoints)
+				.lacking_points(Math.max(requiredPoints - accumulatedPoints, 0))
 				.is_target_point_satisfied(isTargetPointSatisfied)
 				.activities(pointRecommendActivities)
 				.build();
@@ -163,7 +163,7 @@ public class PointRecommendServiceImpl implements PointRecommendService {
 				.group_name("B")
 				.target_points(requiredPoints)
 				.recommended_points(accumulatedPoints)
-				.lacking_points(requiredPoints - accumulatedPoints)
+				.lacking_points(Math.max(requiredPoints - accumulatedPoints, 0))
 				.is_target_point_satisfied(isTargetPointSatisfied)
 				.activities(pointRecommendActivities)
 				.build();
