@@ -1,5 +1,6 @@
 package com.example.point_career.domain.mypage.service;
 
+import com.example.point_career.domain.bookmark.entity.BookmarkType;
 import com.example.point_career.domain.bookmark.repository.PointBookmarkRepository;
 import com.example.point_career.domain.bookmark.repository.RecruitBookmarkRepository;
 import com.example.point_career.domain.category.entity.Category;
@@ -49,6 +50,8 @@ public class MyPageService {
                             .filter(c->c.getType()==CategoryType.ACTIVITY_CATEGORY)
                             .map(c->c.getName().toString()).toList();
                     return MyPageResponse.PointDto.builder()
+                            .bookmarkId(pb.getId())
+                            .bookmarkType(BookmarkType.POINT)
                             .pointId(p.getId())
                             .pointName(p.getTitle())
                             .pointDeadline(p.getDeadline())
@@ -72,6 +75,8 @@ public class MyPageService {
                             .filter(c->c.getType()==CategoryType.RECRUIT_JOB)
                             .map(c->c.getName().toString()).toList();
                     return MyPageResponse.RecruitDto.builder()
+                            .bookmarkId(rb.getId())
+                            .bookmarkType(BookmarkType.RECRUIT)
                             .recruitId(r.getId())
                             .recruitName(r.getTitle())
                             .recruitCompany(r.getCompany())
