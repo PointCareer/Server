@@ -1,5 +1,6 @@
 package com.example.point_career.domain.mypage.dto;
 
+import com.example.point_career.domain.bookmark.entity.BookmarkType;
 import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,6 +25,8 @@ public class MyPageResponse {
     @Getter @Builder
     @NoArgsConstructor @AllArgsConstructor
     public static class PointDto {
+        private Long bookmarkId;
+        private BookmarkType bookmarkType;
         private Long pointId;
         private String pointName;
         private LocalDateTime pointDeadline;
@@ -36,6 +39,8 @@ public class MyPageResponse {
     @Getter @Builder
     @NoArgsConstructor @AllArgsConstructor
     public static class RecruitDto {
+        private Long bookmarkId;
+        private BookmarkType bookmarkType;
         private Long recruitId;
         private String recruitName;
         private String recruitCompany;
